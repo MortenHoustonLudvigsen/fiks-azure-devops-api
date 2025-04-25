@@ -1,0 +1,29 @@
+{
+  "version": "1.0.0",
+  "name": "@fiks-tools/azure-devops-api",
+  "description": "Begrænset klient for Azure DevOps API",
+  "module": "commonjs",
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "scripts": {
+    "prepack": "fiks-build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://dev.azure.com/foa-it/Fiks3%20Tools/_git/fiks-azure-devops-api"
+  },
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "@types/node-fetch": "^2.6.12",
+    "tslib": "^2.8.1",
+    "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "node-fetch": "^2.7.0"
+  },
+  "files": [
+    "*.md",
+    "src",
+    "lib"
+  ]
+}

@@ -1,0 +1,23 @@
+﻿{
+  "import": [
+    "@fiks-tools/fiks-build",
+    "@fiks-tools/fiks-build-transpile"
+  ],
+  "tasks": {
+    "lib:transpile": {
+      "template": "transpile",
+      "pattern": "src/**/*.ts",
+      "transpilers": [ "import", "export" ],
+      "prefix-color": "cyan.dim"
+    },
+    "lib:compile": {
+      "clean": "lib/*",
+      "template": "typescript",
+      "project": "src/tsconfig.json",
+      "prefix-color": "cyan.dim",
+      "notify": true
+    },
+    "lib": [ "lib:transpile", "lib:compile" ],
+    "default": [ "lib" ]
+  }
+}
