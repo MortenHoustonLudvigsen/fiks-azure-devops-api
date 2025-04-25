@@ -1,5 +1,5 @@
 import { env } from "process";
-import { AzureDevOpsApi } from "./index.js";
+import { AzureDevOpsApi } from "../index.js";
 
 const PAT = env['PAT'] ?? 'XXX';
 

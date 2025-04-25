@@ -1,2 +1,2 @@
 "use strict";
-require("./lib/run.js");
+require("./lib/tests/getPackageVersion.js");
