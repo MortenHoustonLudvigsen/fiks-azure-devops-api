@@ -1,12 +1,12 @@
 {
-  "version": "1.0.0",
+  "version": "1.0.0-beta-1",
   "name": "@fiks-tools/azure-devops-api",
   "description": "Begrænset klient for Azure DevOps API",
   "module": "commonjs",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "scripts": {
-    "prepack": "fiks-build"
+    "prepublishOnly": "node ./prepublish.js"
   },
   "repository": {
     "type": "git",
@@ -14,6 +14,8 @@
   },
   "license": "UNLICENSED",
   "devDependencies": {
+    "@fiks-tools/fiks-build": "^4.6.4",
+    "@fiks-tools/fiks-build-transpile": "^2.10.45",
     "@types/node-fetch": "^2.6.12",
     "tslib": "^2.8.1",
     "typescript": "^5.8.3"

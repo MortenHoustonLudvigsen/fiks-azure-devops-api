@@ -1,0 +1,39 @@
+name: fiks-azure-devops-tasks $(Date:dd.MM.yyyy HH.mm)
+
+trigger:
+- master
+
+pool:
+  name: Default
+  demands:
+  - fiks3-component -equals true
+
+workspace:
+  clean: all
+
+steps:
+
+- script: |
+    echo ##vso[task.setvariable variable=NODE_OPTIONS]--max-old-space-size=8192
+  displayName: Set environment variables
+
+- task: NodeTool@0
+  displayName: Use Node 14.x
+  inputs:
+    versionSpec: 14.x
+
+- task: Npm@1
+  displayName: npm install
+  inputs:
+    command: install
+
+- script: ./node_modules/.bin/fiks-build
+  displayName: fiks-build
+
+- task: Npm@1
+  displayName: npm publish
+  inputs:
+    command: custom
+    verbose: false
+    customCommand: publish
+    publishRegistry: useFeed

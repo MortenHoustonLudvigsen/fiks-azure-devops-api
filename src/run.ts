@@ -1,20 +1,44 @@
+import { env } from "process";
 import { AzureDevOpsApi } from "./index.js";
 
-const PAT = `XXX`;
+const PAT = env['PAT'] ?? 'XXX';
 
-async function run() {
+async function test() {
     const api = new AzureDevOpsApi('foa-it', PAT);
 
-    const packages = await api.artifacts.listPackages('fiks', {
-        includeAllVersions: true,
-        protocolType: 'Npm'
-    });
+    try {
+        const packages = await api.artifacts.listPackages('fiks', {
+            includeAllVersions: true,
+            protocolType: 'Npm'
+        });
 
-    console.log(packages);
+        return `${packages.length} packages`;
+    }
+    catch (err: any) {
+        return err.message;
+    }
+}
+
+async function run() {
+    const results = await Promise.all([
+        test(),
+        test(),
+        test(),
+        test(),
+        test(),
+        test(),
+        test(),
+        test(),
+        test(),
+        test(),
+    ]);
+
+    console.log();
+    console.log(results.join('\n'));
 }
 
 run().then(
-    () => {},
+    () => { },
     err => {
         console.error(err);
     }
