@@ -4,6 +4,8 @@ import './ArtifactsApi/ArtifactsInterfaces.js';
 import './ArtifactsApi/DetailsApi/DetailsApi.js';
 import './ArtifactsApi/DetailsApi/getPackageVersion.js';
 import './ArtifactsApi/DetailsApi/getPackages.js';
+import './ArtifactsApi/FeedManagementApi/FeedManagementApi.js';
+import './ArtifactsApi/FeedManagementApi/getFeeds.js';
 import './GitApi/GitApi.js';
 import './GitApi/GitInterfaces.js';
 import './GitApi/RepositoriesApi/RepositoriesApi.js';
