@@ -1,5 +1,6 @@
 import { FeedManagementApi } from './FeedManagementApi';
 import { Feed, FeedRole } from '../ArtifactsInterfaces';
+import { AzureDevOpsApiVersion } from '../../constants';
 
 export interface Options {
   /** Filter by this role, either Administrator(4), Contributor(3), or Reader(2) level permissions. */
@@ -20,7 +21,7 @@ Object.assign(FeedManagementApi.prototype, {
   async getFeeds(this: FeedManagementApi, project: string | undefined, options: Options = {}): Promise<Feed[]> {
     return await this.getList<Feed>([project, '_apis', 'packaging', 'feeds'], {
       ...options,
-      'api-version': '7.2-preview.1',
+      'api-version': AzureDevOpsApiVersion
     });
   },
 });

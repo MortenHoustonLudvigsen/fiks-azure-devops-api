@@ -6,7 +6,7 @@ import { HttpCodes } from './HttpCodes';
 export type QueryValue = string | boolean | number;
 export type Query = Record<string, QueryValue>;
 export type PathSegment = string | undefined;
-type HttpMethod = 'GET' | 'PUT' | 'POST' | 'PATCH';
+type HttpMethod = 'GET' | 'PUT' | 'POST' | 'PATCH' | 'DELETE';
 
 export abstract class ApiBase {
     constructor(public readonly organization: string, private pat: string) { }
@@ -52,6 +52,10 @@ export abstract class ApiBase {
 
     async patch<T>(pathSegments: PathSegment[], query: Query, body: any): Promise<T> {
         return await this.fetchJson<T>('PATCH', pathSegments, query, body);
+    }
+
+    async delete(pathSegments: PathSegment[], query: Query, body?: any): Promise<void> {
+        await this.fetch('DELETE', pathSegments, query, body);
     }
 
     async getBinary(pathSegments: PathSegment[], query: Query): Promise<Buffer> {

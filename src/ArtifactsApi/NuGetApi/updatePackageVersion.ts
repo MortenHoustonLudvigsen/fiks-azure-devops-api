@@ -1,10 +1,6 @@
+import { AzureDevOpsApiVersion } from '../../constants';
 import { NuGetApi } from './NuGetApi';
-import { NuGetPackageVersion } from './NuGetInterfaces';
-
-export interface Options {
-    /** Whether the package version should be listed. */
-    listed?: boolean;
-}
+import { NuGetPackageVersion, PackageVersionDetails } from './NuGetInterfaces';
 
 declare module './NuGetApi' {
     interface NuGetApi {
@@ -16,16 +12,16 @@ declare module './NuGetApi' {
          * @param feedId Name or ID of the feed.
          * @param packageName Name of the package.
          * @param packageVersion Version of the package.
-         * @param options Options
+         * @param request The request
          */
-        updatePackageVersion(project: string | undefined, feedId: string, packageName: string, packageVersion: string, options: Options): Promise<NuGetPackageVersion>;
+        updatePackageVersion(project: string | undefined, feedId: string, packageName: string, packageVersion: string, request: PackageVersionDetails): Promise<NuGetPackageVersion>;
     }
 }
 
 Object.assign(NuGetApi.prototype, {
-    async updatePackageVersion(this: NuGetApi, project: string | undefined, feedId: string, packageName: string, packageVersion: string, options: Options): Promise<NuGetPackageVersion> {
+    async updatePackageVersion(this: NuGetApi, project: string | undefined, feedId: string, packageName: string, packageVersion: string, request: PackageVersionDetails): Promise<NuGetPackageVersion> {
         return await this.patch<NuGetPackageVersion>([project, '_apis', 'packaging', 'feeds', feedId, 'nuget', 'packages', packageName, 'versions', packageVersion], {
-            'api-version': '7.2-preview.1',
-        }, options);
+            'api-version': AzureDevOpsApiVersion
+        }, request);
     },
 });

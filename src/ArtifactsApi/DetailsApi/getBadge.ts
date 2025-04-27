@@ -1,3 +1,4 @@
+import { AzureDevOpsApiVersion } from '../../constants';
 import { DetailsApi } from './DetailsApi';
 
 declare module './DetailsApi' {
@@ -20,7 +21,7 @@ declare module './DetailsApi' {
 Object.assign(DetailsApi.prototype, {
   async getBadge(this: DetailsApi, project: string | undefined, feedId: string, packageId: string): Promise<Buffer> {
     return await this.getBinary([project, '_apis', 'public', 'packaging', 'Feeds', feedId, 'Packages', packageId, 'badge'], {
-      'api-version': '7.2-preview.1',
+      'api-version': AzureDevOpsApiVersion
     });
   },
 });

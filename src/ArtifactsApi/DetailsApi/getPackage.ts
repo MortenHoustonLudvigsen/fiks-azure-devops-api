@@ -1,5 +1,6 @@
 import { DetailsApi } from './DetailsApi';
 import { Package } from '../ArtifactsInterfaces';
+import { AzureDevOpsApiVersion } from '../../constants';
 
 export interface Options {
   /** True to return all versions of the package in the response. Default is false (latest version only). */
@@ -35,7 +36,7 @@ Object.assign(DetailsApi.prototype, {
   async getPackage(this: DetailsApi, project: string | undefined, feedId: string, packageId: string, options: Options = {}): Promise<Package> {
     return await this.get<Package>([project, '_apis', 'packaging', 'Feeds', feedId, 'packages', packageId], {
       ...options,
-      'api-version': '7.2-preview.1',
+      'api-version': AzureDevOpsApiVersion
     });
   },
 });

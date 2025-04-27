@@ -1,3 +1,4 @@
+import { AzureDevOpsApiVersion } from '../../constants';
 import { NuGetApi } from './NuGetApi';
 import { NuGetPackageVersion } from './NuGetInterfaces';
 
@@ -26,7 +27,7 @@ Object.assign(NuGetApi.prototype, {
     async getPackageVersion(this: NuGetApi, project: string | undefined, feedId: string, packageName: string, packageVersion: string, options: Options = {}): Promise<NuGetPackageVersion> {
         return await this.get<NuGetPackageVersion>([project, '_apis', 'packaging', 'feeds', feedId, 'nuget', 'packages', packageName, 'versions', packageVersion], {
             ...options,
-            'api-version': '7.2-preview.1',
+            'api-version': AzureDevOpsApiVersion
         });
     },
 });

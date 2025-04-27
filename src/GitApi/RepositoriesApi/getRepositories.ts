@@ -1,5 +1,6 @@
 import { RepositoriesApi } from './RepositoriesApi';
 import { GitRepository } from '../GitInterfaces.js';
+import { AzureDevOpsApiVersion } from '../../constants';
 
 export interface Options {
     /** True to include all remote URLs. The default value is false. */
@@ -20,9 +21,7 @@ Object.assign(RepositoriesApi.prototype, {
     async getRepositories(this: RepositoriesApi, project: string, options: Options = {}): Promise<GitRepository[]> {
         return await this.getList<GitRepository>([project, '_apis', 'git', 'repositories'], {
             ...options,
-            'api-version': '7.2-preview.1'
+            'api-version': AzureDevOpsApiVersion 
         });
     }
 });
-
-//GET https://dev.azure.com/{organization}/{project}/_apis/git/repositories?includeLinks={includeLinks}&includeAllUrls={includeAllUrls}&includeHidden={includeHidden}&api-version=7.2-preview.2

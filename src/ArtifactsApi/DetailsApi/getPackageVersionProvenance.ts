@@ -1,5 +1,6 @@
 import { DetailsApi } from './DetailsApi';
 import { PackageVersionProvenance } from '../ArtifactsInterfaces';
+import { AzureDevOpsApiVersion } from '../../constants';
 
 declare module './DetailsApi' {
   interface DetailsApi {
@@ -19,7 +20,7 @@ declare module './DetailsApi' {
 Object.assign(DetailsApi.prototype, {
   async getPackageVersionProvenance(this: DetailsApi, project: string | undefined, feedId: string, packageId: string, packageVersionId: string): Promise<PackageVersionProvenance> {
     return await this.get<PackageVersionProvenance>([project, '_apis', 'packaging', 'Feeds', feedId, 'Packages', packageId, 'Versions', packageVersionId, 'provenance'], {
-      'api-version': '7.2-preview.1',
+      'api-version': AzureDevOpsApiVersion
     });
   },
 });
