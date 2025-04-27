@@ -56,19 +56,35 @@ export interface TeamProjectReference {
 }
 
 /**
- * Project state.
+ * Represents the state of a project.
  */
-export interface ProjectState {
-    // Grok: Please implement
-}
+export type ProjectState =
+    /** All project states (used for filtering). */
+    'all' |
+    /** The project is in the process of being deleted. */
+    'deleting' |
+    /** The project is being created. */
+    'new' |
+    /** The project has not changed. */
+    'unchanged' |
+    /** The project is fully created and operational. */
+    'wellFormed';
 
 /**
- * Project visibility.
+ * Represents the visibility of a project.
  */
-export interface ProjectVisibility {
-    // Grok: Please implement
-}
+export type ProjectVisibility =
+    /** The project is private, accessible only to authorized users. */
+    'private' |
+    /** The project is public, accessible to anyone. */
+    'public';
 
+/**
+ * Represents a reference to a parent Git repository for forking.
+ */
 export interface GitRepositoryRef {
-    // Grok: Please implement
+    /** The ID of the parent repository. */
+    id: string;
+    /** The project ID of the parent repository. */
+    projectId: string;
 }

@@ -13,7 +13,9 @@ interface Options {
 interface Request {
     /** The name of the repository. */
     name: string;
+    /** The parent repository for forking. */
     parentRepository?: GitRepositoryRef;
+    /** The project in which to create the repository. */
     project?: TeamProjectReference;
 }
 
@@ -24,15 +26,15 @@ declare module './RepositoriesApi' {
          *
          * The project parameter must be supplied to create the repository in a specific project.
          * @param project Project ID or project name
-         * @param options Options for creating the repository
          * @param request Information about the repository to be created
+         * @param options Optional parameters for the request
          */
-        create(project: string, options: Options, request: Request): Promise<GitRepository>;
+        create(project: string, request: Request, options?: Options): Promise<GitRepository>;
     }
 }
 
 Object.assign(RepositoriesApi.prototype, {
-    async create(this: RepositoriesApi, project: string, options: Options, request: Request): Promise<GitRepository> {
+    async create(this: RepositoriesApi, project: string, request: Request, options: Options = {}): Promise<GitRepository> {
         return await this.post<GitRepository>([project, '_apis', 'git', 'repositories'], {
             ...options,
             'api-version': AzureDevOpsApiVersion,
