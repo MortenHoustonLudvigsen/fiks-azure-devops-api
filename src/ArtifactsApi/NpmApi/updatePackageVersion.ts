@@ -1,0 +1,35 @@
+import { NpmApi } from './NpmApi';
+import { AzureDevOpsApiVersion } from '../../constants';
+
+/**
+ * Represents details for updating an npm package version.
+ */
+interface NpmPackageVersionDetails {
+    /** Whether the package version should be listed. */
+    listed?: boolean;
+}
+
+declare module './NpmApi' {
+    interface NpmApi {
+        /**
+         * Update the state of an npm package version.
+         *
+         * The project parameter must be supplied if the feed was created in a project. If the feed is not associated with any project, omit the project parameter from the request.
+         * @param project Project ID or project name
+         * @param feedId Name or ID of the feed.
+         * @param scope Optional scope for scoped packages (e.g., '@scope'). Specify undefined for unscoped packages.
+         * @param packageName Name of the package (e.g., 'package' or 'package' for scoped '@scope/package').
+         * @param packageVersion Version of the package.
+         * @param details Details for updating the package version
+         */
+        updatePackageVersion(project: string | undefined, feedId: string, scope: string | undefined, packageName: string, packageVersion: string, details: NpmPackageVersionDetails): Promise<void>;
+    }
+}
+
+Object.assign(NpmApi.prototype, {
+    async updatePackageVersion(this: NpmApi, project: string | undefined, feedId: string, scope: string | undefined, packageName: string, packageVersion: string, details: NpmPackageVersionDetails): Promise<void> {
+        await this.patch([project, '_apis', 'packaging', 'feeds', feedId, 'npm', 'packages', scope, packageName, 'versions', packageVersion], {
+            'api-version': AzureDevOpsApiVersion,
+        }, details);
+    },
+});

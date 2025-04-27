@@ -20,9 +20,7 @@ declare module './NpmApi' {
 
 Object.assign(NpmApi.prototype, {
     async getPackageVersion(this: NpmApi, project: string | undefined, feedId: string, scope: string | undefined, packageName: string, packageVersion: string): Promise<NpmPackageVersion> {
-        const pathSegments: (string | undefined)[] = [project, '_apis', 'packaging', 'feeds', feedId, 'npm', scope, packageName, 'versions', packageVersion];
-
-        return await this.get<NpmPackageVersion>(pathSegments, {
+        return await this.get<NpmPackageVersion>([project, '_apis', 'packaging', 'feeds', feedId, 'npm', scope, packageName, 'versions', packageVersion], {
             'api-version': AzureDevOpsApiVersion,
         });
     },
