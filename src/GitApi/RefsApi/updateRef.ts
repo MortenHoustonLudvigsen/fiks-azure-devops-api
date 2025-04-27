@@ -17,11 +17,10 @@ declare module './RefsApi' {
          * The project parameter must be supplied if updating a reference for a specific project. If omitted, the reference is assumed to be organization-scoped.
          * @param project Project ID or project name
          * @param repositoryId The ID or name of the repository
-         * @param refName The name of the reference (e.g., 'refs/heads/main')
          * @param options Optional parameters for the request
          * @param update The reference update to apply
          */
-        updateRef(project: string | undefined, repositoryId: string, refName: string, options: Options, update: GitRefUpdate): Promise<GitRef>;
+        updateRef(project: string | undefined, repositoryId: string, options: Options, update: GitRefUpdate): Promise<GitRef>;
     }
 }
 
