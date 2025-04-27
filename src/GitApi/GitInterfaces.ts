@@ -151,10 +151,14 @@ export interface GitRef {
  * Represents an update to a Git reference.
  */
 export interface GitRefUpdate {
+    /**  */
+    isLocked?: boolean;
     /** The name of the reference to update (e.g., 'refs/heads/main'). */
     name: string;
     /** The new object ID (SHA-1 hash) the reference should point to. */
     newObjectId: string;
     /** The current object ID (SHA-1 hash) the reference points to, for optimistic locking. */
     oldObjectId: string;
+    /**  */
+    repositoryId: string;
 }

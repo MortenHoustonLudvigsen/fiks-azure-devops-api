@@ -46,6 +46,8 @@ import './GitApi/GitApi.js';
 import './GitApi/GitInterfaces.js';
 import './GitApi/RefsApi/RefsApi.js';
 import './GitApi/RefsApi/list.js';
+import './GitApi/RefsApi/updateRef.js';
+import './GitApi/RefsApi/updateRefs.js';
 import './GitApi/RepositoriesApi/RepositoriesApi.js';
 import './GitApi/RepositoriesApi/create.js';
 import './GitApi/RepositoriesApi/getRepository.js';
