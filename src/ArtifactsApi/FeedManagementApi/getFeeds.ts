@@ -1,24 +1,24 @@
 import { FeedManagementApi } from './FeedManagementApi';
-import { Feed } from '../ArtifactsInterfaces';
+import { Feed, FeedRole } from '../ArtifactsInterfaces';
 
 export interface Options {
-  /** True to include feeds with 'Collection' visibility; otherwise, false. Default: unset (include all). */
-  includeCollection?: boolean;
-  /** True to include deleted feeds in the response; otherwise, false. Default: unset (exclude deleted). */
-  includeDeleted?: boolean;
-  /** True to include REST URLs with each feed; otherwise, false. Default: unset (include URLs). */
+  /** Filter by this role, either Administrator(4), Contributor(3), or Reader(2) level permissions. */
+  feedRole?: FeedRole;
+  /** Include upstreams that have been deleted in the response. */
+  includeDeletedUpstreams?: boolean;
+  /** Resolve names if true. */
   includeUrls?: boolean;
 }
 
 declare module './FeedManagementApi' {
   interface FeedManagementApi {
-    getFeeds(options?: Options): Promise<Feed[]>;
+    getFeeds(project: string | undefined, options?: Options): Promise<Feed[]>;
   }
 }
 
 Object.assign(FeedManagementApi.prototype, {
-  async getFeeds(this: FeedManagementApi, options: Options = {}): Promise<Feed[]> {
-    return await this.getList<Feed>(['_apis', 'packaging', 'feeds'], {
+  async getFeeds(this: FeedManagementApi, project: string | undefined, options: Options = {}): Promise<Feed[]> {
+    return await this.getList<Feed>([project, '_apis', 'packaging', 'feeds'], {
       ...options,
       'api-version': '7.2-preview.1',
     });
