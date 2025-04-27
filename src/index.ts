@@ -15,6 +15,7 @@ import './ArtifactsApi/NuGetApi/NuGetApi.js';
 import './ArtifactsApi/NuGetApi/NuGetInterfaces.js';
 import './ArtifactsApi/NuGetApi/downloadPackage.js';
 import './ArtifactsApi/NuGetApi/getPackageVersion.js';
+import './ArtifactsApi/NuGetApi/updatePackageVersion.js';
 import './GitApi/GitApi.js';
 import './GitApi/GitInterfaces.js';
 import './GitApi/RepositoriesApi/RepositoriesApi.js';

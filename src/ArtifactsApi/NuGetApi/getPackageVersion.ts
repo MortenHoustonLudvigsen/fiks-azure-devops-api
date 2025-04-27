@@ -9,7 +9,7 @@ export interface Options {
 declare module './NuGetApi' {
     interface NuGetApi {
         /**
-         * Get information about a package version.
+         * Get information about a NuGet package version.
          *
          * The project parameter must be supplied if the feed was created in a project. If the feed is not associated with any project, omit the project parameter from the request.
          * @param project Project ID or project name
