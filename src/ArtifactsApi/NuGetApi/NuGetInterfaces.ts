@@ -91,12 +91,8 @@ export interface NuGetPackageVersion {
  * Represents the deletion state of a NuGet package version in the recycle bin.
  */
 export interface NuGetPackageVersionDeletionState {
-  /** The identity that deleted the package version. */
-  deletedBy: string;
   /** The UTC date the package version was deleted. */
   deletedDate: string;
-  /** The GUID of the package version. */
-  id: string;
   /** The name of the package. */
   name: string;
   /** The version of the package. */
