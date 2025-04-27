@@ -120,11 +120,11 @@ export interface GitCommitRef {
     /** The number of changes in the commit. */
     changeCounts: {
         /** Number of added files. */
-        add: number;
+        Add: number;
         /** Number of edited files. */
-        edit: number;
+        Edit: number;
         /** Number of deleted files. */
-        delete: number;
+        Delete: number;
     };
     /** The parent commit IDs. */
     parents?: string[];
@@ -215,6 +215,23 @@ export interface GitChange {
     };
     /** The URL to the change details. */
     url: string;
+}
+
+/**
+ * Represents the changes in a Git commit.
+ */
+export interface GitCommitChanges {
+    /** The number of changes in the commit. */
+    changeCounts: {
+        /** Number of added files. */
+        Add: number;
+        /** Number of edited files. */
+        Edit: number;
+        /** Number of deleted files. */
+        Delete: number;
+    };
+    /** The list of changes in the commit. */
+    changes: GitChange[];
 }
 
 /**

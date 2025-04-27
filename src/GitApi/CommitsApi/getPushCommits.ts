@@ -3,9 +3,9 @@ import { GitCommitRef } from '../GitInterfaces';
 import { AzureDevOpsApiVersion } from '../../constants';
 
 interface Options {
-    /** The id of the push - required. */
+    /** The ID of the push. */
     pushId: number;
-    /** Set to false to avoid including REST Url links for resources. Defaults to true. */
+    /** Set to false to avoid including REST URL links for resources. Defaults to true. */
     includeLinks?: boolean;
     /** The number of commits to skip. */
     skip?: number;

@@ -1,5 +1,5 @@
 import { CommitsApi } from './CommitsApi';
-import { GitChange } from '../GitInterfaces';
+import { GitChange, GitCommitChanges } from '../GitInterfaces';
 import { AzureDevOpsApiVersion } from '../../constants';
 
 interface Options {
@@ -7,11 +7,6 @@ interface Options {
     top?: number;
     /** The number of changes to skip before returning results. */
     skip?: number;
-}
-
-interface GitCommitChanges {
-    changeCounts: any;
-    changes: GitChange[];
 }
 
 declare module './CommitsApi' {

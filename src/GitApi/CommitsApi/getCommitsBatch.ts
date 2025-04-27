@@ -19,8 +19,8 @@ declare module './CommitsApi' {
          * The project parameter must be supplied if retrieving commits for a specific project. If omitted, commits are assumed to be organization-scoped.
          * @param project Project ID or project name
          * @param repositoryId The ID or name of the repository
-         * @param request The batch request specifying commits to retrieve
          * @param options Optional parameters for the request
+         * @param request The batch request specifying commits to retrieve
          */
         getCommitsBatch(project: string | undefined, repositoryId: string, options: Options | undefined, request: GitCommitsBatchRequest): Promise<GitCommitRef[]>;
     }
