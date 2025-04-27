@@ -238,3 +238,11 @@ export interface MinimalPackageVersion {
     views: FeedView[];
 }
 
+export interface Provenance {
+    /** The source of the package version (e.g., upstream feed or direct publish). */
+    source: string;
+    /** The publisher or origin details, if available. */
+    publisher?: string;
+    /** Timestamp of the provenance record. */
+    timestamp?: string;
+}
