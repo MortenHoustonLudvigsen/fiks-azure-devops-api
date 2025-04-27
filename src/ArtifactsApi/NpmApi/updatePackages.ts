@@ -5,13 +5,13 @@ import { AzureDevOpsApiVersion } from '../../constants';
  * The type of batch operation to perform on npm package versions.
  */
 type NpmBatchOperationType =
-    /** Delete package versions (equivalent to Unpublish). Not supported in the Recycle Bin. */
+    /** Delete package versions (equivalent to Unpublish). */
     'delete' |
-    /** Deprecate or undeprecate package versions. Not supported in the Recycle Bin. */
+    /** Deprecate or undeprecate package versions. */
     'deprecate' |
-    /** Promote package versions to a release view. Not supported in the Recycle Bin. */
+    /** Promote package versions to a release view. */
     'promote' |
-    /** Unpublish package versions. Npm-specific alias for the Delete operation. Not supported in the Recycle Bin. */
+    /** Unpublish package versions. Npm-specific alias for the Delete operation. */
     'unpublish';
 
 /**
@@ -19,7 +19,7 @@ type NpmBatchOperationType =
  */
 interface MinimalPackageDetails {
     /** Package name (e.g., 'package' or '@scope/package' for scoped packages). */
-    id: string;
+    packageName: string;
     /** Package version. */
     version: string;
 }
