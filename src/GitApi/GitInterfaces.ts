@@ -162,3 +162,41 @@ export interface GitRefUpdate {
     /** The ID of the repository. */
     repositoryId?: string;
 }
+
+/**
+ * Represents a change in a Git commit.
+ */
+export interface GitChange {
+    /** The type of change (e.g., add, edit, delete). */
+    changeType: 'add' | 'edit' | 'delete' | 'rename' | 'sourceRename' | 'targetRename' | 'undelete';
+    /** The path of the item affected by the change. */
+    item: {
+        /** The path of the item. */
+        path: string;
+        /** The Git object ID (if applicable). */
+        gitObjectId?: string;
+        /** The type of item (e.g., file, folder). */
+        objectType?: 'blob' | 'tree';
+    };
+    /** The URL to the change details. */
+    url: string;
+}
+
+/**
+ * Represents a request to retrieve a batch of commits.
+ */
+export interface GitCommitsBatchRequest {
+    /** The IDs of the commits to retrieve. */
+    commitIds: string[];
+    /** If specified, filter commits affecting this path. */
+    itemPath?: string;
+    /** If specified, filter commits for this version. */
+    itemVersion?: {
+        /** Version string (e.g., branch name, tag, or commit ID). */
+        version: string;
+        /** Version type (branch, tag, or commit). */
+        versionType: 'branch' | 'tag' | 'commit';
+        /** Version options (e.g., firstParent, previousChange). */
+        versionOptions?: 'firstParent' | 'none' | 'previousChange';
+    };
+}
