@@ -5,7 +5,7 @@ import { HttpCodes } from './HttpCodes';
 import { ApiBase } from './ApiBase';
 
 export type QueryValue = string | boolean | number;
-export type Query = Record<string, QueryValue>;
+export type Query = Record<string, QueryValue | QueryValue[]>;
 export type PathSegment = string | undefined;
 type HttpMethod = 'GET' | 'PUT' | 'POST' | 'PATCH' | 'DELETE';
 
@@ -120,11 +120,13 @@ export class AzureDevOpsHttpClient {
 
 function getQueryString(query: Query): string {
     let queryString = '';
-    for (const [name, value] of Object.entries(query)) {
-        queryString += queryString === '' ? '?' : '&';
-        queryString += encodeURIComponent(name);
-        queryString += '=';
-        queryString += encodeURIComponent(formatQueryValue(value));
+    for (const [name, values] of Object.entries(query)) {
+        for (const value of array(values)) {
+            queryString += queryString === '' ? '?' : '&';
+            queryString += encodeURIComponent(name);
+            queryString += '=';
+            queryString += encodeURIComponent(formatQueryValue(value));
+        }
     }
     return queryString;
 }
@@ -146,4 +148,14 @@ function hasStringValue(value: string | null | undefined): value is string {
     return value != null
         && typeof value === 'string'
         && /\S/.test(value);
+}
+
+function array<T>(value: T | T[] | null | undefined): T[] {
+    if (value == null)
+        return [];
+
+    if (Array.isArray(value))
+        return value;
+
+    return [value];
 }
