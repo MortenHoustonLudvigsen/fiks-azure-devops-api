@@ -18,6 +18,7 @@ import './ArtifactsApi/NuGetApi/deletePackageVersion.js';
 import './ArtifactsApi/NuGetApi/deletePackageVersionFromRecycleBin.js';
 import './ArtifactsApi/NuGetApi/downloadPackage.js';
 import './ArtifactsApi/NuGetApi/getPackageVersion.js';
+import './ArtifactsApi/NuGetApi/getPackageVersionFromRecycleBin.js';
 import './ArtifactsApi/NuGetApi/updatePackageVersion.js';
 import './ArtifactsApi/NuGetApi/updatePackageVersions.js';
 import './GitApi/GitApi.js';
