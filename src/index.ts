@@ -14,6 +14,7 @@ import './ArtifactsApi/FeedManagementApi/getFeeds.js';
 import './ArtifactsApi/NuGetApi/JsonPatchOperation.js';
 import './ArtifactsApi/NuGetApi/NuGetApi.js';
 import './ArtifactsApi/NuGetApi/NuGetInterfaces.js';
+import './ArtifactsApi/NuGetApi/deletePackageVersion.js';
 import './ArtifactsApi/NuGetApi/deletePackageVersionFromRecycleBin.js';
 import './ArtifactsApi/NuGetApi/downloadPackage.js';
 import './ArtifactsApi/NuGetApi/getPackageVersion.js';
