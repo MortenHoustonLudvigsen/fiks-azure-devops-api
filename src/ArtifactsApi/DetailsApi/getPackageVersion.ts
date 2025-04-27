@@ -12,17 +12,15 @@ export interface Options {
 
 declare module './DetailsApi' {
     interface DetailsApi {
-        getPackageVersion(feedId: string, packageId: string, packageVersionId: string, options?: Options): Promise<PackageVersion>;
+        getPackageVersion(project: string | undefined, feedId: string, packageId: string, packageVersionId: string, options?: Options): Promise<PackageVersion>;
     }
 }
 
 Object.assign(DetailsApi.prototype, {
-    async getPackageVersion(this: DetailsApi, feedId: string, packageId: string, packageVersionId: string, options: Options = {}): Promise<PackageVersion> {
-        return await this.get<PackageVersion>(['_apis', 'packaging', 'Feeds', feedId, 'packages', packageId, 'versions', packageVersionId], {
+    async getPackageVersion(this: DetailsApi, project: string | undefined, feedId: string, packageId: string, packageVersionId: string, options: Options = {}): Promise<PackageVersion> {
+        return await this.get<PackageVersion>([project, '_apis', 'packaging', 'Feeds', feedId, 'packages', packageId, 'versions', packageVersionId], {
             ...options,
             'api-version': '7.2-preview.1'
         });
     }
 });
-
-//GET https://feeds.dev.azure.com/{organization}/{project}/_apis/packaging/Feeds/{feedId}/Packages/{packageId}/versions/{packageVersionId}?api-version=7.2-preview.1

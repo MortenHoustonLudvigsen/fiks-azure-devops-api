@@ -30,13 +30,13 @@ export interface Options {
 
 declare module './DetailsApi' {
     interface DetailsApi {
-        getPackages(feedId: string, options?: Options): Promise<Package[]>;
+        getPackages(project: string | undefined, feedId: string, options?: Options): Promise<Package[]>;
     }
 }
 
 Object.assign(DetailsApi.prototype, {
-    async getPackages(this: DetailsApi, feedId: string, options: Options = {}): Promise<Package[]> {
-        return await this.getList<Package>(['_apis', 'packaging', 'Feeds', feedId, 'packages'], {
+    async getPackages(this: DetailsApi, project: string | undefined, feedId: string, options: Options = {}): Promise<Package[]> {
+        return await this.getList<Package>([project, '_apis', 'packaging', 'Feeds', feedId, 'packages'], {
             ...options,
             'api-version': '7.2-preview.1'
         });
