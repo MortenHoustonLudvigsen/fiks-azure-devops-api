@@ -25,7 +25,7 @@ declare module './RefsApi' {
 }
 
 Object.assign(RefsApi.prototype, {
-    async updateRef(this: RefsApi, project: string | undefined, repositoryId: string, refName: string, options: Options, update: GitRefUpdate): Promise<GitRef> {
+    async updateRef(this: RefsApi, project: string | undefined, repositoryId: string, options: Options, update: GitRefUpdate): Promise<GitRef> {
         return await this.client.patch<GitRef>([project, '_apis', 'git', 'repositories', repositoryId, 'refs'], {
             ...options,
             'api-version': AzureDevOpsApiVersion,
