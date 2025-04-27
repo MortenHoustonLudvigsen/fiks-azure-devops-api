@@ -88,3 +88,64 @@ export interface GitRepositoryRef {
     /** The project ID of the parent repository. */
     projectId: string;
 }
+
+/**
+ * Represents a reference to a Git commit.
+ */
+export interface GitCommitRef {
+    /** The ID (SHA-1 hash) of the commit. */
+    commitId: string;
+    /** The URL to the commit. */
+    url: string;
+    /** The author of the commit. */
+    author: {
+        /** The name of the author. */
+        name: string;
+        /** The email of the author. */
+        email: string;
+        /** The timestamp of the author’s commit. */
+        date: string;
+    };
+    /** The committer of the commit. */
+    committer: {
+        /** The name of the committer. */
+        name: string;
+        /** The email of the committer. */
+        email: string;
+        /** The timestamp of the commit. */
+        date: string;
+    };
+    /** The commit message. */
+    comment: string;
+    /** The number of changes in the commit. */
+    changeCounts: {
+        /** Number of added files. */
+        add: number;
+        /** Number of edited files. */
+        edit: number;
+        /** Number of deleted files. */
+        delete: number;
+    };
+}
+
+/**
+ * Represents options for listing commits.
+ */
+export interface ListCommitsOptions {
+    /** If specified, only commits authored by this user are returned. */
+    author?: string;
+    /** If true, include push and commit information for commits. */
+    includePushData?: boolean;
+    /** The ID or name of the source branch to retrieve commits from. */
+    fromBranch?: string;
+    /** The ID or name of the target branch to retrieve commits to. */
+    toBranch?: string;
+    /** The maximum number of commits to return. */
+    top?: number;
+    /** The commit ID to start listing commits from. */
+    fromCommitId?: string;
+    /** The commit ID to end listing commits at. */
+    toCommitId?: string;
+    /** If true, include commits that have been deleted. */
+    includeDeleted?: boolean;
+}
