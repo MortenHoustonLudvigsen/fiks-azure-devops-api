@@ -13,6 +13,7 @@ import './ArtifactsApi/FeedManagementApi/getFeed.js';
 import './ArtifactsApi/FeedManagementApi/getFeeds.js';
 import './ArtifactsApi/NpmApi/NpmApi.js';
 import './ArtifactsApi/NpmApi/NpmInterfaces.js';
+import './ArtifactsApi/NpmApi/downloadPackage.js';
 import './ArtifactsApi/NpmApi/getPackageVersion.js';
 import './ArtifactsApi/NuGetApi/JsonPatchOperation.js';
 import './ArtifactsApi/NuGetApi/NuGetApi.js';
