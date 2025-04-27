@@ -1,7 +1,7 @@
-import { ArtifactsApi } from '../ArtifactsApi';
-import { Package } from './FeedsInterfaces';
+import { DetailsApi } from './DetailsApi';
+import { Package } from '../ArtifactsInterfaces';
 
-export interface ListPackagesOptions {
+export interface Options {
     /** Return deleted or unpublished versions of packages in the response. Default is False. */
     includeDeleted?: boolean;
     /** Return the description for every version of each package in the response. Default is False. Cannot be used in conjunction with includeAllVersions. */
@@ -28,14 +28,14 @@ export interface ListPackagesOptions {
     $top?: number;
 }
 
-declare module '../ArtifactsApi' {
-    interface ArtifactsApi {
-        listPackages(feedId: string, options?: ListPackagesOptions): Promise<Package[]>;
+declare module './DetailsApi' {
+    interface DetailsApi {
+        getPackages(feedId: string, options?: Options): Promise<Package[]>;
     }
 }
 
-Object.assign(ArtifactsApi.prototype, {
-    async listPackages(this: ArtifactsApi, feedId: string, options: ListPackagesOptions = {}): Promise<Package[]> {
+Object.assign(DetailsApi.prototype, {
+    async getPackages(this: DetailsApi, feedId: string, options: Options = {}): Promise<Package[]> {
         return await this.getList<Package>(['_apis', 'packaging', 'Feeds', feedId, 'packages'], {
             ...options,
             'api-version': '7.2-preview.1'

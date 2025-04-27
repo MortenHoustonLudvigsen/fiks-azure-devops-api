@@ -1,7 +1,7 @@
-import { ArtifactsApi } from '../ArtifactsApi';
-import { PackageVersion } from './FeedsInterfaces';
+import { DetailsApi } from './DetailsApi';
+import { PackageVersion } from '../ArtifactsInterfaces';
 
-export interface GetPackageVersionOptions {
+export interface Options {
     /** True to include urls for each version. Default is true. */
     includeUrls?: boolean;
     /** Only applicable for NuGet packages. If false, delisted package versions will be returned. */
@@ -10,14 +10,14 @@ export interface GetPackageVersionOptions {
     isDeleted?: boolean;
 }
 
-declare module '../ArtifactsApi' {
-    interface ArtifactsApi {
-        getPackageVersion(feedId: string, packageId: string, packageVersionId: string, options?: GetPackageVersionOptions): Promise<PackageVersion>;
+declare module './DetailsApi' {
+    interface DetailsApi {
+        getPackageVersion(feedId: string, packageId: string, packageVersionId: string, options?: Options): Promise<PackageVersion>;
     }
 }
 
-Object.assign(ArtifactsApi.prototype, {
-    async getPackageVersion(this: ArtifactsApi, feedId: string, packageId: string, packageVersionId: string, options: GetPackageVersionOptions = {}): Promise<PackageVersion> {
+Object.assign(DetailsApi.prototype, {
+    async getPackageVersion(this: DetailsApi, feedId: string, packageId: string, packageVersionId: string, options: Options = {}): Promise<PackageVersion> {
         return await this.get<PackageVersion>(['_apis', 'packaging', 'Feeds', feedId, 'packages', packageId, 'versions', packageVersionId], {
             ...options,
             'api-version': '7.2-preview.1'

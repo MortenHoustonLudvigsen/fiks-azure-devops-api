@@ -1,16 +1,13 @@
 ﻿/// import */**/*.ts !tests/**/*.ts
-import './ArtifactsApi/FeedsInterfaces.js';
-import './ArtifactsApi/getPackageVersion.js';
-import './ArtifactsApi/listPackages.js';
+import './ArtifactsApi/ArtifactsApi.js';
+import './ArtifactsApi/ArtifactsInterfaces.js';
+import './ArtifactsApi/DetailsApi/DetailsApi.js';
+import './ArtifactsApi/DetailsApi/getPackageVersion.js';
+import './ArtifactsApi/DetailsApi/getPackages.js';
+import './GitApi/GitApi.js';
+import './GitApi/GitInterfaces.js';
+import './GitApi/RepositoriesApi/RepositoriesApi.js';
+import './GitApi/RepositoriesApi/getRepositories.js';
 /// import end
 
-/// export **/*.ts !tests/**/*.ts
-export * from './ApiBase.js';
-export * from './ArtifactsApi.js';
-export * from './ArtifactsApi/FeedsInterfaces.js';
-export * from './ArtifactsApi/getPackageVersion.js';
-export * from './ArtifactsApi/listPackages.js';
 export * from './AzureDevOpsApi.js';
-export * from './ListResponse.js';
-export * from './constants.js';
-/// export end
