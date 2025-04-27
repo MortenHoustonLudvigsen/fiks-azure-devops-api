@@ -62,7 +62,7 @@ export abstract class ApiBase {
         return await this.fetchBinary('GET', pathSegments, query);
     }
 
-    private async fetchBinary(method: HttpMethod, pathSegments: PathSegment[], query: Query, body?: any): Promise<Buffer> {
+    async fetchBinary(method: HttpMethod, pathSegments: PathSegment[], query: Query, body?: any): Promise<Buffer> {
         const response = await this.fetch(method, pathSegments, query, body);
 
         switch (response.status) {
@@ -74,7 +74,7 @@ export abstract class ApiBase {
         }
     }
 
-    private async fetchJson<T>(method: HttpMethod, pathSegments: PathSegment[], query: Query, body?: any): Promise<T> {
+    async fetchJson<T>(method: HttpMethod, pathSegments: PathSegment[], query: Query, body?: any): Promise<T> {
         const response = await this.fetch(method, pathSegments, query, body);
 
         switch (response.status) {
@@ -86,7 +86,7 @@ export abstract class ApiBase {
         }
     }
 
-    private async fetch(method: HttpMethod, pathSegments: PathSegment[], query: Query, body?: any): Promise<fetch.Response> {
+    async fetch(method: HttpMethod, pathSegments: PathSegment[], query: Query, body?: any): Promise<fetch.Response> {
         const { pat } = this;
 
         const authString = `:${pat}`;

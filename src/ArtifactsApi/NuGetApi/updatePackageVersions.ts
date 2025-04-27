@@ -1,6 +1,6 @@
 import { AzureDevOpsApiVersion } from '../../constants';
 import { NuGetApi } from './NuGetApi';
-import { NuGetBatchRequest, NuGetPackageVersion } from './NuGetInterfaces';
+import { NuGetBatchRequest } from './NuGetInterfaces';
 
 declare module './NuGetApi' {
     interface NuGetApi {
@@ -12,13 +12,13 @@ declare module './NuGetApi' {
          * @param feedId Name or ID of the feed.
          * @param request Request containing the operation and package versions to update
          */
-        updatePackageVersions(project: string | undefined, feedId: string, request: NuGetBatchRequest): Promise<NuGetPackageVersion[]>;
+        updatePackageVersions(project: string | undefined, feedId: string, request: NuGetBatchRequest): Promise<void>;
     }
 }
 
 Object.assign(NuGetApi.prototype, {
-    async updatePackageVersions(this: NuGetApi, project: string | undefined, feedId: string, request: NuGetBatchRequest): Promise<NuGetPackageVersion[]> {
-        return await this.postList<NuGetPackageVersion>([project, '_apis', 'packaging', 'feeds', feedId, 'nuget', 'packagesbatch'], {
+    async updatePackageVersions(this: NuGetApi, project: string | undefined, feedId: string, request: NuGetBatchRequest): Promise<void> {
+        await this.fetch('POST', [project, '_apis', 'packaging', 'feeds', feedId, 'nuget', 'packagesbatch'], {
             'api-version': AzureDevOpsApiVersion
         }, request);
     },
