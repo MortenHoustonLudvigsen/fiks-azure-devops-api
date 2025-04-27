@@ -30,6 +30,14 @@ export interface Options {
 
 declare module './DetailsApi' {
     interface DetailsApi {
+        /**
+         * Get details about all of the packages in the feed. Use the various filters to include or exclude information from the result set.
+         * 
+         * The project parameter must be supplied if the feed was created in a project. If the feed is not associated with any project, omit the project parameter from the request.
+         * @param project Project ID or project name
+         * @param feedId Name or Id of the feed.
+         * @param options Options
+         */
         getPackages(project: string | undefined, feedId: string, options?: Options): Promise<Package[]>;
     }
 }

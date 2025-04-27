@@ -12,6 +12,15 @@ export interface Options {
 
 declare module './DetailsApi' {
   interface DetailsApi {
+    /**
+     * Get a list of package versions, optionally filtering by state.
+     * 
+     * The project parameter must be supplied if the feed was created in a project. If the feed is not associated with any project, omit the project parameter from the request.
+     * @param project Project ID or project name
+     * @param feedId Name or Id of the feed.
+     * @param packageId Id of the package (GUID Id, not name).
+     * @param options Options
+     */
     getPackageVersions(project: string | undefined, feedId: string, packageId: string, options?: Options): Promise<PackageVersion[]>;
   }
 }
