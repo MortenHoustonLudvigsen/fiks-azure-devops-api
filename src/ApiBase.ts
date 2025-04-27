@@ -55,7 +55,7 @@ export abstract class ApiBase {
     }
 
     async get<T>(pathSegments: PathSegment[], query: Query): Promise<T> {
-        return await this.fetch<T>('GET', pathSegments, query);
+        return await this.fetchJson<T>('GET', pathSegments, query);
     }
 
     async putList<T>(pathSegments: PathSegment[], query: Query, body: any): Promise<T[]> {
@@ -64,7 +64,7 @@ export abstract class ApiBase {
     }
 
     async put<T>(pathSegments: PathSegment[], query: Query, body: any): Promise<T> {
-        return await this.fetch<T>('PUT', pathSegments, query, body);
+        return await this.fetchJson<T>('PUT', pathSegments, query, body);
     }
 
     async postList<T>(pathSegments: PathSegment[], query: Query, body: any): Promise<T[]> {
@@ -73,34 +73,27 @@ export abstract class ApiBase {
     }
 
     async post<T>(pathSegments: PathSegment[], query: Query, body: any): Promise<T> {
-        return await this.fetch<T>('POST', pathSegments, query, body);
+        return await this.fetchJson<T>('POST', pathSegments, query, body);
     }
 
     async getBinary(pathSegments: PathSegment[], query: Query): Promise<Buffer> {
-        const init = this.getRequestInit('GET');
+        return await this.fetchBinary('GET', pathSegments, query);
+    }
 
-        const url = this.getUrl(pathSegments, query);
-
-        log.debug(`GET ${url}`);
-
-        const response = await fetch(url, init);
+    private async fetchBinary(method: HttpMethod, pathSegments: PathSegment[], query: Query, body?: any): Promise<Buffer> {
+        const response = await this.fetch(method, pathSegments, query, body);
 
         switch (response.status) {
             case HttpCodes.OK:
+            case HttpCodes.Created:
                 return await response.buffer();
             default:
                 throw new Error(`${response.status} - ${response.statusText}`);
         }
     }
 
-    private async fetch<T>(method: HttpMethod, pathSegments: PathSegment[], query: Query, body?: any): Promise<T> {
-        const init = this.getRequestInit(method, body);
-
-        const url = this.getUrl(pathSegments, query);
-
-        log.debug(`${method} ${url}`);
-
-        const response = await fetch(url, init);
+    private async fetchJson<T>(method: HttpMethod, pathSegments: PathSegment[], query: Query, body?: any): Promise<T> {
+        const response = await this.fetch(method, pathSegments, query, body);
 
         switch (response.status) {
             case HttpCodes.OK:
@@ -111,7 +104,7 @@ export abstract class ApiBase {
         }
     }
 
-    private getRequestInit(method: HttpMethod, body?: any): fetch.RequestInit {
+    private async fetch(method: HttpMethod, pathSegments: PathSegment[], query: Query, body?: any): Promise<fetch.Response> {
         const { pat } = this;
 
         const authString = `:${pat}`;
@@ -138,7 +131,11 @@ export abstract class ApiBase {
             };
         }
 
-        return init
+        const url = this.getUrl(pathSegments, query);
+
+        log.debug(`${method} ${url}`);
+
+        return await fetch(url, init);
     }
 }
 
