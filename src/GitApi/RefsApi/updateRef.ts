@@ -3,7 +3,7 @@ import { GitRef, GitRefUpdate } from '../GitInterfaces';
 import { AzureDevOpsApiVersion } from '../../constants';
 
 interface Options {
-    /** The name of the branch to lock/unlock - required */
+    /** The name of the reference to update (e.g., 'refs/heads/main'). */
     filter: string;
     /** ID or name of the team project. Optional if specifying an ID for repository. */
     projectId?: string;
@@ -17,7 +17,7 @@ declare module './RefsApi' {
          * The project parameter must be supplied if updating a reference for a specific project. If omitted, the reference is assumed to be organization-scoped.
          * @param project Project ID or project name
          * @param repositoryId The ID or name of the repository
-         * @param options Optional parameters for the request
+         * @param options Query parameters for the request, including the reference name
          * @param update The reference update to apply
          */
         updateRef(project: string | undefined, repositoryId: string, options: Options, update: GitRefUpdate): Promise<GitRef>;

@@ -160,5 +160,5 @@ export interface GitRefUpdate {
     /** The current object ID (SHA-1 hash) the reference points to, for optimistic locking. */
     oldObjectId: string;
     /** The ID of the repository. */
-    repositoryId: string;
+    repositoryId?: string;
 }
