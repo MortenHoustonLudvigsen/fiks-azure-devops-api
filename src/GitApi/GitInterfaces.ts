@@ -30,11 +30,45 @@ export interface GitRepository {
 }
 
 /**
- * Represents options for creating a Git repository.
+ * Represents a shallow reference to a TeamProject.
  */
-export interface GitRepositoryCreateOptions {
-    /** The name of the repository. */
-    name: string;
-    /** The ID of the project in which to create the repository. */
-    projectId: string;
+export interface TeamProjectReference {
+    /** Project abbreviation. */
+    abbreviation?: string;
+    /** Url to default team identity image. */
+    defaultTeamImageUrl?: string;
+    /** The project's description (if any). */
+    description?: string;
+    /** Project identifier. */
+    id?: string;
+    /** Project last update time. */
+    lastUpdateTime?: string;
+    /** Project name. */
+    name?: string;
+    /** Project revision. */
+    revision?: number;
+    /** Project state. */
+    state?: ProjectState;
+    /** Url to the full version of the object. */
+    url?: string;
+    /** Project visibility. */
+    visibility?: ProjectVisibility;
+}
+
+/**
+ * Project state.
+ */
+export interface ProjectState {
+    // Grok: Please implement
+}
+
+/**
+ * Project visibility.
+ */
+export interface ProjectVisibility {
+    // Grok: Please implement
+}
+
+export interface GitRepositoryRef {
+    // Grok: Please implement
 }
