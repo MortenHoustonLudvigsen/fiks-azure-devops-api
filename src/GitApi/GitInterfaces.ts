@@ -126,6 +126,41 @@ export interface GitCommitRef {
         /** Number of deleted files. */
         delete: number;
     };
+    /** The parent commit IDs. */
+    parents?: string[];
+    /** Reference links for the commit. */
+    _links?: {
+        /** Link to the commit resource. */
+        self?: { href: string };
+        /** Link to the repository. */
+        repository?: { href: string };
+        /** Link to the commit's changes. */
+        changes?: { href: string };
+        /** Link to the commit's statuses. */
+        statuses?: { href: string };
+    };
+    /** Statuses associated with the commit. */
+    statuses?: {
+        /** The ID of the status. */
+        id: number;
+        /** The state of the status (e.g., succeeded, failed). */
+        state: 'notSet' | 'pending' | 'succeeded' | 'failed' | 'error';
+        /** The description of the status. */
+        description?: string;
+        /** The context of the status (e.g., CI pipeline). */
+        context: {
+            /** The name of the context. */
+            name: string;
+            /** The genre of the context. */
+            genre?: string;
+        };
+        /** The target URL of the status. */
+        targetUrl?: string;
+        /** The creation date of the status. */
+        createdDate: string;
+        /** The update date of the status. */
+        updatedDate: string;
+    }[];
 }
 
 /**
@@ -199,4 +234,6 @@ export interface GitCommitsBatchRequest {
         /** Version options (e.g., firstParent, previousChange). */
         versionOptions?: 'firstParent' | 'none' | 'previousChange';
     };
+    /** If true, include commit statuses in the response. */
+    includeStatuses?: boolean;
 }

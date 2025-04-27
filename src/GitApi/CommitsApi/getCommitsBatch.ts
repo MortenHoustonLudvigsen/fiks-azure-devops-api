@@ -28,7 +28,7 @@ declare module './CommitsApi' {
 
 Object.assign(CommitsApi.prototype, {
     async getCommitsBatch(this: CommitsApi, project: string | undefined, repositoryId: string, options: Options | undefined, request: GitCommitsBatchRequest): Promise<GitCommitRef[]> {
-        return await this.client.postList<GitCommitRef>([project, '_apis', 'git', 'repositories', repositoryId, 'commitsbatch'], {
+        return await this.client.post<GitCommitRef[]>([project, '_apis', 'git', 'repositories', repositoryId, 'commitsbatch'], {
             ...options,
             'api-version': AzureDevOpsApiVersion,
         }, request);
