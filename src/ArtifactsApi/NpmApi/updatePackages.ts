@@ -5,41 +5,44 @@ import { AzureDevOpsApiVersion } from '../../constants';
  * The type of batch operation to perform on npm package versions.
  */
 type NpmBatchOperationType =
-    /** Update the listed state of package versions. */
-    'list' |
-    /** Delete package versions from the feed. */
+    /** Delete package versions (equivalent to Unpublish). Not supported in the Recycle Bin. */
     'delete' |
-    /** Permanently delete package versions from the recycle bin. */
-    'permanentDelete';
+    /** Deprecate or undeprecate package versions. Not supported in the Recycle Bin. */
+    'deprecate' |
+    /** Permanently delete package versions. Only supported in the Recycle Bin. */
+    'permanentDelete'
+    /** Promote package versions to a release view. If constructing a NpmPackagesBatchRequest object with this type, use BatchPromoteData for its Data property. Not supported in the Recycle Bin. */
+    'promote'
+    /** Restore unpublished package versions to the feed. Only supported in the Recycle Bin. */
+    'restoreToFeed'
+    /** Unpublish package versions. Npm-specific alias for the Delete operation. Not supported in the Recycle Bin. */
+    'unpublish';
 
 /**
  * Represents a package identifier for a batch operation.
  */
-interface NpmBatchPackage {
-    /** Name of the package (e.g., 'package' or '@scope/package' for scoped packages). */
-    packageName: string;
-    /** Version of the package. */
-    packageVersion: string;
+interface MinimalPackageDetails {
+    /** Package name. */
+    id: string;
+    /** Package version. */
+    version: string;
 }
 
 /**
  * Represents additional data for a batch operation (e.g., listed state for 'list' operation).
  */
-interface NpmBatchOperationData {
-    /** Whether the package versions should be listed (for 'list' operation). */
-    listed?: boolean;
-}
+type NpmBatchOperationData = any;
 
 /**
  * Represents a batch request for updating npm package versions.
  */
 interface NpmBatchRequest {
-    /** The operation to perform on the package versions. */
-    operation: NpmBatchOperationType;
-    /** The list of packages and versions to update. */
-    packages: NpmBatchPackage[];
-    /** Additional operation-specific data (e.g., listed state for 'list' operation). */
+    /** Data required to perform the operation. This is optional based on type of operation. Use BatchPromoteData if performing a promote operation. */
     data?: NpmBatchOperationData;
+    /** Type of operation that needs to be performed on packages. */
+    operation: NpmBatchOperationType;
+    /** The packages onto which the operation will be performed. */
+    packages: MinimalPackageDetails[];
 }
 
 declare module './NpmApi' {
