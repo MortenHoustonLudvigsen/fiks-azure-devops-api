@@ -4,6 +4,7 @@ import { ListResponse } from './ListResponse';
 
 export type QueryValue = string | boolean | number;
 export type Query = Record<string, QueryValue>;
+export type PathSegment = string | undefined;
 
 export enum HttpCodes {
     OK = 200,
@@ -42,39 +43,39 @@ export abstract class ApiBase {
 
     protected abstract getBaseUrl(): string;
 
-    getUrl(pathSegments: string[], query: Query): string {
-        const path = pathSegments.filter(s => /\S/.test(s)).map(s => `/${encodeURIComponent(s)}`).join('');
+    getUrl(pathSegments: PathSegment[], query: Query): string {
+        const path = pathSegments.filter(hasStringValue).map(s => `/${encodeURIComponent(s)}`).join('');
         return `${this.getBaseUrl()}${path}${getQueryString(query)}`;
     }
 
-    async getList<T>(pathSegments: string[], query: Query): Promise<T[]> {
+    async getList<T>(pathSegments: PathSegment[], query: Query): Promise<T[]> {
         const result = await this.get<ListResponse<T>>(pathSegments, query);
         return result.value;
     }
 
-    async get<T>(pathSegments: string[], query: Query): Promise<T> {
+    async get<T>(pathSegments: PathSegment[], query: Query): Promise<T> {
         return await this.fetch<T>('GET', pathSegments, query);
     }
 
-    async putList<T>(pathSegments: string[], query: Query, body: any): Promise<T[]> {
+    async putList<T>(pathSegments: PathSegment[], query: Query, body: any): Promise<T[]> {
         const result = await this.put<ListResponse<T>>(pathSegments, query, body);
         return result.value;
     }
 
-    async put<T>(pathSegments: string[], query: Query, body: any): Promise<T> {
+    async put<T>(pathSegments: PathSegment[], query: Query, body: any): Promise<T> {
         return await this.fetch<T>('PUT', pathSegments, query, body);
     }
 
-    async postList<T>(pathSegments: string[], query: Query, body: any): Promise<T[]> {
+    async postList<T>(pathSegments: PathSegment[], query: Query, body: any): Promise<T[]> {
         const result = await this.post<ListResponse<T>>(pathSegments, query, body);
         return result.value;
     }
 
-    async post<T>(pathSegments: string[], query: Query, body: any): Promise<T> {
+    async post<T>(pathSegments: PathSegment[], query: Query, body: any): Promise<T> {
         return await this.fetch<T>('POST', pathSegments, query, body);
     }
 
-    private async fetch<T>(method: 'GET' | 'PUT' | 'POST', pathSegments: string[], query: Query, body?: any): Promise<T> {
+    private async fetch<T>(method: 'GET' | 'PUT' | 'POST', pathSegments: PathSegment[], query: Query, body?: any): Promise<T> {
         const { pat } = this;
 
         const authString = `:${pat}`;
@@ -130,4 +131,10 @@ function formatQueryValue(value: QueryValue): string {
         default:
             return `${value}`;
     }
+}
+
+function hasStringValue(value: string | null | undefined) : value is string {
+    return value != null
+        && typeof value === 'string'
+        && /\S/.test(value);
 }
