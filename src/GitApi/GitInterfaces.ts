@@ -149,3 +149,34 @@ export interface ListCommitsOptions {
     /** If true, include commits that have been deleted. */
     includeDeleted?: boolean;
 }
+
+/**
+ * Represents a Git reference (e.g., branch or tag).
+ */
+export interface GitRef {
+    /** The name of the reference (e.g., 'refs/heads/main'). */
+    name: string;
+    /** The object ID (SHA-1 hash) the reference points to. */
+    objectId: string;
+    /** The creator of the reference. */
+    creator: {
+        /** The display name of the creator. */
+        displayName: string;
+        /** The unique ID of the creator. */
+        uniqueName: string;
+    };
+    /** The URL to the reference. */
+    url: string;
+}
+
+/**
+ * Represents an update to a Git reference.
+ */
+export interface GitRefUpdate {
+    /** The name of the reference to update (e.g., 'refs/heads/main'). */
+    name: string;
+    /** The new object ID (SHA-1 hash) the reference should point to. */
+    newObjectId: string;
+    /** The current object ID (SHA-1 hash) the reference points to, for optimistic locking. */
+    oldObjectId: string;
+}

@@ -8,6 +8,6 @@ export class RepositoriesApi extends ApiBase {
 
   protected override getBaseUrl(): string {
     const { organization } = this;
-    return `https://dev.${AzureDevOpsHost}/${organization}`;
+    return `https://${AzureDevOpsHost}/${organization}`;
   }
 }

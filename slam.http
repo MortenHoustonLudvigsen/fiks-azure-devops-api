@@ -1,0 +1,2 @@
+GET https://dev.azure.com/foa-it/Fiks-Components/_apis/git/repositories/Fiks.Web.Application/refs?api-version=7.2-preview.2
+Authorization: BASIC :1SHF4U3mX8E1HZoKUgWSW8me76SL5aCeIfgwv50bPvgNUSAencOFJQQJ99BDACAAAAAwCGWcAAASAZDOkWV1

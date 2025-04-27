@@ -41,7 +41,12 @@ import './ArtifactsApi/NuGetApi/updatePackageVersions.js';
 import './ArtifactsApi/NuGetApi/updateRecycleBinPackageVersions.js';
 import './GitApi/GitApi.js';
 import './GitApi/GitInterfaces.js';
+import './GitApi/RefsApi/RefsApi.js';
+import './GitApi/RefsApi/list.js';
 import './GitApi/RepositoriesApi/RepositoriesApi.js';
+import './GitApi/RepositoriesApi/create.js';
+import './GitApi/RepositoriesApi/getRepository.js';
+import './GitApi/RepositoriesApi/list.js';
 /// import end
 
 export * from './AzureDevOpsApi.js';
