@@ -5,6 +5,7 @@ import { ListResponse } from './ListResponse';
 export type QueryValue = string | boolean | number;
 export type Query = Record<string, QueryValue>;
 export type PathSegment = string | undefined;
+type HttpMethod = 'GET' | 'PUT' | 'POST';
 
 export enum HttpCodes {
     OK = 200,
@@ -75,39 +76,71 @@ export abstract class ApiBase {
         return await this.fetch<T>('POST', pathSegments, query, body);
     }
 
-    private async fetch<T>(method: 'GET' | 'PUT' | 'POST', pathSegments: PathSegment[], query: Query, body?: any): Promise<T> {
-        const { pat } = this;
+    async getBinary(pathSegments: string[], query: Query): Promise<Buffer> {
+        const init = this.getRequestInit('GET');
 
-        const authString = `:${pat}`;
-        const base64Auth = Buffer.from(authString).toString('base64');
+        const url = this.getUrl(pathSegments, query);
 
-        const init: fetch.RequestInit = {
-            method,
-            headers: {
-                'Authorization': `Basic ${base64Auth}`,
-                'Content-Type': 'application/json',
-            },
-            body: body != null ? JSON.stringify(body) : undefined
-        };
+        log.debug(`GET ${url}`);
+
+        const response = await fetch(url, init);
+
+        switch (response.status) {
+            case HttpCodes.OK:
+                return await response.buffer();
+            default:
+                throw new Error(`${response.status} - ${response.statusText}`);
+        }
+    }
+
+    private async fetch<T>(method: HttpMethod, pathSegments: PathSegment[], query: Query, body?: any): Promise<T> {
+        const init = this.getRequestInit(method, body);
 
         const url = this.getUrl(pathSegments, query);
 
         log.debug(`${method} ${url}`);
 
-        return await getJsonResult<T>(await fetch(url, init));
+        const response = await fetch(url, init);
+
+        switch (response.status) {
+            case HttpCodes.OK:
+            case HttpCodes.Created:
+                return (await response.json()) as T;
+            default:
+                throw new Error(`${response.status} - ${response.statusText}`);
+        }
+    }
+
+    private getRequestInit(method: HttpMethod, body?: any): fetch.RequestInit {
+        const { pat } = this;
+
+        const authString = `:${pat}`;
+        const base64Auth = Buffer.from(authString).toString('base64');
+        const authorization = `Basic ${base64Auth}`;
+
+        let init: fetch.RequestInit = {
+            method,
+            headers: {
+                Authorization: authorization,
+                'Content-Type': 'application/json',
+            },
+            body: body != null ? JSON.stringify(body) : undefined
+        };
+
+        if (body != null) {
+            init = {
+                ...init,
+                body: JSON.stringify(body),
+                headers: {
+                    ...init.headers,
+                    'Content-Type': 'application/json',
+                },
+            };
+        }
+
+        return init
     }
 }
-
-async function getJsonResult<T>(response: fetch.Response) {
-    switch (response.status) {
-        case HttpCodes.OK:
-        case HttpCodes.Created:
-            return (await response.json()) as T;
-        default:
-            throw new Error(`${response.status} - ${response.statusText}`);
-    }
-}
-
 
 function getQueryString(query: Query): string {
     let queryString = '';
@@ -133,7 +166,7 @@ function formatQueryValue(value: QueryValue): string {
     }
 }
 
-function hasStringValue(value: string | null | undefined) : value is string {
+function hasStringValue(value: string | null | undefined): value is string {
     return value != null
         && typeof value === 'string'
         && /\S/.test(value);
