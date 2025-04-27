@@ -19,7 +19,7 @@ declare module './NpmApi' {
 
 Object.assign(NpmApi.prototype, {
     async downloadPackage(this: NpmApi, project: string | undefined, feedId: string, scope: string | undefined, packageName: string, packageVersion: string): Promise<Buffer> {
-        const pathSegments: (string | undefined)[] = [project, '_apis', 'packaging', 'feeds', feedId, 'npm', scope, packageName, 'versions', packageVersion, 'content'];
+        const pathSegments: (string | undefined)[] = [project, '_apis', 'packaging', 'feeds', feedId, 'npm', 'packages', scope, packageName, 'versions', packageVersion, 'content'];
 
         return await this.getBinary(pathSegments, {
             'api-version': AzureDevOpsApiVersion,
