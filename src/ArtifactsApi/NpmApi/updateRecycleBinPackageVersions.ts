@@ -16,7 +16,7 @@ type NpmBatchOperationType =
  * Represents a package identifier for a batch operation.
  */
 interface NpmBatchPackage {
-    /** Name of the package. */
+    /** Name of the package (e.g., 'package' or '@scope/package' for scoped packages). */
     packageName: string;
     /** Version of the package. */
     packageVersion: string;

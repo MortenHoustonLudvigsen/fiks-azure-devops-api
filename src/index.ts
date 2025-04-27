@@ -15,6 +15,7 @@ import './ArtifactsApi/NpmApi/NpmApi.js';
 import './ArtifactsApi/NpmApi/NpmInterfaces.js';
 import './ArtifactsApi/NpmApi/deletePackageVersionFromRecycleBin.js';
 import './ArtifactsApi/NpmApi/downloadPackage.js';
+import './ArtifactsApi/NpmApi/getPackageReadme.js';
 import './ArtifactsApi/NpmApi/getPackageVersion.js';
 import './ArtifactsApi/NpmApi/getPackageVersionFromRecycleBin.js';
 import './ArtifactsApi/NpmApi/updateRecycleBinPackageVersions.js';
