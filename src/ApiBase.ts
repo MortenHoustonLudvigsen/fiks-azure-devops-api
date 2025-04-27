@@ -1,4 +1,5 @@
 import fetch from 'node-fetch';
+import { log } from '@fiks-tools/node-logging';
 import { ListResponse } from './ListResponse';
 
 export type QueryValue = string | boolean | number;
@@ -6,6 +7,7 @@ export type Query = Record<string, QueryValue>;
 
 export enum HttpCodes {
     OK = 200,
+    Created = 201,
     MultipleChoices = 300,
     MovedPermanently = 301,
     ResourceMoved = 302,
@@ -51,29 +53,57 @@ export abstract class ApiBase {
     }
 
     async get<T>(pathSegments: string[], query: Query): Promise<T> {
+        return await this.fetch<T>('GET', pathSegments, query);
+    }
+
+    async putList<T>(pathSegments: string[], query: Query, body: any): Promise<T[]> {
+        const result = await this.put<ListResponse<T>>(pathSegments, query, body);
+        return result.value;
+    }
+
+    async put<T>(pathSegments: string[], query: Query, body: any): Promise<T> {
+        return await this.fetch<T>('PUT', pathSegments, query, body);
+    }
+
+    async postList<T>(pathSegments: string[], query: Query, body: any): Promise<T[]> {
+        const result = await this.post<ListResponse<T>>(pathSegments, query, body);
+        return result.value;
+    }
+
+    async post<T>(pathSegments: string[], query: Query, body: any): Promise<T> {
+        return await this.fetch<T>('POST', pathSegments, query, body);
+    }
+
+    private async fetch<T>(method: 'GET' | 'PUT' | 'POST', pathSegments: string[], query: Query, body?: any): Promise<T> {
         const { pat } = this;
 
         const authString = `:${pat}`;
-        const base64Auth = Buffer.from(authString).toString('base64');        
+        const base64Auth = Buffer.from(authString).toString('base64');
 
         const init: fetch.RequestInit = {
-            method: 'GET',
-            headers: { 'Authorization': `Basic ${base64Auth}` }
+            method,
+            headers: {
+                'Authorization': `Basic ${base64Auth}`,
+                'Content-Type': 'application/json',
+            },
+            body: body != null ? JSON.stringify(body) : undefined
         };
 
         const url = this.getUrl(pathSegments, query);
 
-        console.log(`GET ${url}`);
+        log.debug(`${method} ${url}`);
 
-        const response = await fetch(url, init);
+        return await getJsonResult<T>(await fetch(url, init));
+    }
+}
 
-        switch (response.status) {
-            case HttpCodes.OK:
-                const result = await response.json();
-                return result as T;
-            default:
-                throw new Error(`${response.status} - ${response.statusText}`);
-        }
+async function getJsonResult<T>(response: fetch.Response) {
+    switch (response.status) {
+        case HttpCodes.OK:
+        case HttpCodes.Created:
+            return (await response.json()) as T;
+        default:
+            throw new Error(`${response.status} - ${response.statusText}`);
     }
 }
 
