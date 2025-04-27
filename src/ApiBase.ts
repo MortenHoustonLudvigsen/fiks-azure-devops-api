@@ -76,7 +76,7 @@ export abstract class ApiBase {
         return await this.fetch<T>('POST', pathSegments, query, body);
     }
 
-    async getBinary(pathSegments: string[], query: Query): Promise<Buffer> {
+    async getBinary(pathSegments: PathSegment[], query: Query): Promise<Buffer> {
         const init = this.getRequestInit('GET');
 
         const url = this.getUrl(pathSegments, query);
