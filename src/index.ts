@@ -39,10 +39,6 @@ import './ArtifactsApi/NuGetApi/setUpstreamingBehavior.js';
 import './ArtifactsApi/NuGetApi/updatePackageVersion.js';
 import './ArtifactsApi/NuGetApi/updatePackageVersions.js';
 import './ArtifactsApi/NuGetApi/updateRecycleBinPackageVersions.js';
-import './GitApi/GitApi.js';
-import './GitApi/GitInterfaces.js';
-import './GitApi/RepositoriesApi/RepositoriesApi.js';
-import './GitApi/RepositoriesApi/getRepositories.js';
 /// import end
 
 export * from './AzureDevOpsApi.js';
