@@ -9,12 +9,8 @@ type NpmBatchOperationType =
     'delete' |
     /** Deprecate or undeprecate package versions. Not supported in the Recycle Bin. */
     'deprecate' |
-    /** Permanently delete package versions. Only supported in the Recycle Bin. */
-    'permanentDelete'
-    /** Promote package versions to a release view. If constructing a NpmPackagesBatchRequest object with this type, use BatchPromoteData for its Data property. Not supported in the Recycle Bin. */
-    'promote'
-    /** Restore unpublished package versions to the feed. Only supported in the Recycle Bin. */
-    'restoreToFeed'
+    /** Promote package versions to a release view. Not supported in the Recycle Bin. */
+    'promote' |
     /** Unpublish package versions. Npm-specific alias for the Delete operation. Not supported in the Recycle Bin. */
     'unpublish';
 
@@ -22,24 +18,30 @@ type NpmBatchOperationType =
  * Represents a package identifier for a batch operation.
  */
 interface MinimalPackageDetails {
-    /** Package name. */
+    /** Package name (e.g., 'package' or '@scope/package' for scoped packages). */
     id: string;
     /** Package version. */
     version: string;
 }
 
 /**
- * Represents additional data for a batch operation (e.g., listed state for 'list' operation).
+ * Represents additional data for a batch operation.
  */
-type NpmBatchOperationData = any;
+type NpmBatchOperationData =
+    /** Data for 'promote' operation. */
+    { viewId: string } |
+    /** Data for 'deprecate' operation. */
+    { message: string } |
+    /** No data for 'delete' or 'unpublish' operations. */
+    {};
 
 /**
  * Represents a batch request for updating npm package versions.
  */
 interface NpmBatchRequest {
-    /** Data required to perform the operation. This is optional based on type of operation. Use BatchPromoteData if performing a promote operation. */
+    /** Data required to perform the operation (e.g., viewId for promote, message for deprecate). */
     data?: NpmBatchOperationData;
-    /** Type of operation that needs to be performed on packages. */
+    /** Type of operation to perform on packages. */
     operation: NpmBatchOperationType;
     /** The packages onto which the operation will be performed. */
     packages: MinimalPackageDetails[];
