@@ -5,11 +5,11 @@ import { AzureDevOpsApiVersion } from '../../constants';
  * Represents the deletion state of an npm package version in the recycle bin.
  */
 interface NpmPackageVersionDeletionState {
-    /** The UTC date the package version was deleted. */
-    deletedDate: string;
     /** The name of the package. */
     name: string;
-    /** The version of the package. */
+    /** UTC date the package was unpublished. */
+    unpublishedDate: string;
+    /** Version of the package. */
     version: string;
 }
 
