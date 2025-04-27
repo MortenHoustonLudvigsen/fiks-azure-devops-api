@@ -20,6 +20,8 @@ import './ArtifactsApi/NuGetApi/downloadPackage.js';
 import './ArtifactsApi/NuGetApi/getPackageVersion.js';
 import './ArtifactsApi/NuGetApi/getPackageVersionFromRecycleBin.js';
 import './ArtifactsApi/NuGetApi/getUpstreamingBehavior.js';
+import './ArtifactsApi/NuGetApi/restorePackageVersionFromRecycleBin.js';
+import './ArtifactsApi/NuGetApi/setUpstreamingBehavior.js';
 import './ArtifactsApi/NuGetApi/updatePackageVersion.js';
 import './ArtifactsApi/NuGetApi/updatePackageVersions.js';
 import './ArtifactsApi/NuGetApi/updateRecycleBinPackageVersions.js';

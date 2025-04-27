@@ -5,20 +5,21 @@ import { UpstreamingBehavior } from './NuGetInterfaces';
 declare module './NuGetApi' {
     interface NuGetApi {
         /**
-         * Get the upstreaming behavior of a NuGet feed.
+         * Set the upstreaming behavior of a NuGet feed.
          *
          * The project parameter must be supplied if the feed was created in a project. If the feed is not associated with any project, omit the project parameter from the request.
          * @param project Project ID or project name
          * @param feedId Name or ID of the feed.
+         * @param behavior The upstreaming behavior to set
          */
-        getUpstreamingBehavior(project: string | undefined, feedId: string): Promise<UpstreamingBehavior>;
+        setUpstreamingBehavior(project: string | undefined, feedId: string, behavior: UpstreamingBehavior): Promise<void>;
     }
 }
 
 Object.assign(NuGetApi.prototype, {
-    async getUpstreamingBehavior(this: NuGetApi, project: string | undefined, feedId: string): Promise<UpstreamingBehavior> {
-        return await this.get<UpstreamingBehavior>([project, '_apis', 'packaging', 'feeds', feedId, 'nuget', 'upstreaming'], {
+    async setUpstreamingBehavior(this: NuGetApi, project: string | undefined, feedId: string, behavior: UpstreamingBehavior): Promise<void> {
+        await this.patch([project, '_apis', 'packaging', 'feeds', feedId, 'nuget', 'upstreaming'], {
             'api-version': AzureDevOpsApiVersion,
-        });
+        }, behavior);
     },
 });
