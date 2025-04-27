@@ -19,7 +19,7 @@ declare module './NpmApi' {
 
 Object.assign(NpmApi.prototype, {
     async setPackageUpstreamingBehavior(this: NpmApi, project: string | undefined, feedId: string, packageName: string, behavior: UpstreamingBehavior): Promise<void> {
-        await this.patch([project, '_apis', 'packaging', 'feeds', feedId, 'npm', 'packages', ...packageName.split('/', 2), 'upstreaming'], {
+        await this.client.patch([project, '_apis', 'packaging', 'feeds', feedId, 'npm', 'packages', ...packageName.split('/', 2), 'upstreaming'], {
             'api-version': AzureDevOpsApiVersion,
         }, behavior);
     },

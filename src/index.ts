@@ -42,6 +42,7 @@ import './ArtifactsApi/NuGetApi/updateRecycleBinPackageVersions.js';
 import './GitApi/GitApi.js';
 import './GitApi/GitInterfaces.js';
 import './GitApi/RefsApi/RefsApi.js';
+import './GitApi/RefsApi/get.js';
 import './GitApi/RefsApi/list.js';
 import './GitApi/RepositoriesApi/RepositoriesApi.js';
 import './GitApi/RepositoriesApi/create.js';

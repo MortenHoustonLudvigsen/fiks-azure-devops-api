@@ -35,7 +35,7 @@ declare module './RepositoriesApi' {
 
 Object.assign(RepositoriesApi.prototype, {
     async create(this: RepositoriesApi, project: string, request: Request, options: Options = {}): Promise<GitRepository> {
-        return await this.post<GitRepository>([project, '_apis', 'git', 'repositories'], {
+        return await this.client.post<GitRepository>([project, '_apis', 'git', 'repositories'], {
             ...options,
             'api-version': AzureDevOpsApiVersion,
         }, request);

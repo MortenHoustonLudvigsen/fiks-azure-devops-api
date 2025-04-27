@@ -27,7 +27,7 @@ declare module './NuGetApi' {
 
 Object.assign(NuGetApi.prototype, {
     async restorePackageVersionFromRecycleBin(this: NuGetApi, project: string | undefined, feedId: string, packageName: string, packageVersion: string, details: NuGetRecycleBinPackageVersionDetails): Promise<void> {
-        await this.patch([project, '_apis', 'packaging', 'feeds', feedId, 'nuget', 'RecycleBin', 'packages', packageName, 'versions', packageVersion], {
+        await this.client.patch([project, '_apis', 'packaging', 'feeds', feedId, 'nuget', 'RecycleBin', 'packages', packageName, 'versions', packageVersion], {
             'api-version': AzureDevOpsApiVersion,
         }, details);
     },

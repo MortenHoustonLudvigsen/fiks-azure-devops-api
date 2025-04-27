@@ -30,7 +30,7 @@ declare module './NpmApi' {
 
 Object.assign(NpmApi.prototype, {
     async updatePackage(this: NpmApi, project: string | undefined, feedId: string, packageName: string, packageVersion: string, details: NpmPackageVersionDetails): Promise<void> {
-        await this.patch([project, '_apis', 'packaging', 'feeds', feedId, 'npm', 'packages', ...packageName.split('/', 2), 'versions', packageVersion], {
+        await this.client.patch([project, '_apis', 'packaging', 'feeds', feedId, 'npm', 'packages', ...packageName.split('/', 2), 'versions', packageVersion], {
             'api-version': AzureDevOpsApiVersion,
         }, details);
     },

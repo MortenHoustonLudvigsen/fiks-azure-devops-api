@@ -6,7 +6,7 @@ export class RefsApi extends ApiBase {
         super(organization, pat);
     }
 
-    protected override getBaseUrl(): string {
+    override getBaseUrl(): string {
         const { organization } = this;
         return `https://${AzureDevOpsHost}/${organization}`;
     }

@@ -57,7 +57,7 @@ declare module './NpmApi' {
 
 Object.assign(NpmApi.prototype, {
     async updateRecycleBinPackageVersions(this: NpmApi, project: string | undefined, feedId: string, request: NpmBatchRequest): Promise<void> {
-        await this.fetch('POST', [project, '_apis', 'packaging', 'feeds', feedId, 'npm', 'RecycleBin', 'packagesbatch'], {
+        await this.client.fetch('POST', [project, '_apis', 'packaging', 'feeds', feedId, 'npm', 'RecycleBin', 'packagesbatch'], {
             'api-version': AzureDevOpsApiVersion,
         }, request);
     },

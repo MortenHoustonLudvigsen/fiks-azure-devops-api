@@ -18,7 +18,7 @@ declare module './NuGetApi' {
 
 Object.assign(NuGetApi.prototype, {
     async updatePackageVersions(this: NuGetApi, project: string | undefined, feedId: string, request: NuGetBatchRequest): Promise<void> {
-        await this.fetch('POST', [project, '_apis', 'packaging', 'feeds', feedId, 'nuget', 'packagesbatch'], {
+        await this.client.fetch('POST', [project, '_apis', 'packaging', 'feeds', feedId, 'nuget', 'packagesbatch'], {
             'api-version': AzureDevOpsApiVersion
         }, request);
     },

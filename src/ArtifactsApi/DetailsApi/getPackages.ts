@@ -45,7 +45,7 @@ declare module './DetailsApi' {
 
 Object.assign(DetailsApi.prototype, {
     async getPackages(this: DetailsApi, project: string | undefined, feedId: string, options: Options = {}): Promise<Package[]> {
-        return await this.getList<Package>([project, '_apis', 'packaging', 'Feeds', feedId, 'packages'], {
+        return await this.client.getList<Package>([project, '_apis', 'packaging', 'Feeds', feedId, 'packages'], {
             ...options,
             'api-version': AzureDevOpsApiVersion 
         });

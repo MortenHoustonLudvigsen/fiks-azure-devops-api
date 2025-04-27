@@ -19,7 +19,7 @@ declare module './DetailsApi' {
 
 Object.assign(DetailsApi.prototype, {
   async getPackageVersionProvenance(this: DetailsApi, project: string | undefined, feedId: string, packageId: string, packageVersionId: string): Promise<PackageVersionProvenance> {
-    return await this.get<PackageVersionProvenance>([project, '_apis', 'packaging', 'Feeds', feedId, 'Packages', packageId, 'Versions', packageVersionId, 'provenance'], {
+    return await this.client.get<PackageVersionProvenance>([project, '_apis', 'packaging', 'Feeds', feedId, 'Packages', packageId, 'Versions', packageVersionId, 'provenance'], {
       'api-version': AzureDevOpsApiVersion
     });
   },

@@ -17,7 +17,7 @@ declare module './NuGetApi' {
 
 Object.assign(NuGetApi.prototype, {
     async getUpstreamingBehavior(this: NuGetApi, project: string | undefined, feedId: string): Promise<UpstreamingBehavior> {
-        return await this.get<UpstreamingBehavior>([project, '_apis', 'packaging', 'feeds', feedId, 'nuget', 'upstreaming'], {
+        return await this.client.get<UpstreamingBehavior>([project, '_apis', 'packaging', 'feeds', feedId, 'nuget', 'upstreaming'], {
             'api-version': AzureDevOpsApiVersion,
         });
     },

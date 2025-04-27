@@ -19,7 +19,7 @@ declare module './NpmApi' {
 
 Object.assign(NpmApi.prototype, {
     async getPackageReadme(this: NpmApi, project: string | undefined, feedId: string, packageName: string, packageVersion: string): Promise<string> {
-        const response = await this.getBinary([project, '_apis', 'packaging', 'feeds', feedId, 'npm', 'packages', ...packageName.split('/', 2), 'versions', packageVersion, 'readme'], {
+        const response = await this.client.getBinary([project, '_apis', 'packaging', 'feeds', feedId, 'npm', 'packages', ...packageName.split('/', 2), 'versions', packageVersion, 'readme'], {
             'api-version': AzureDevOpsApiVersion,
         });
         return response.toString('utf8');

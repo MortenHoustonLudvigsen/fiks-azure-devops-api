@@ -18,7 +18,7 @@ declare module './NpmApi' {
 
 Object.assign(NpmApi.prototype, {
     async unpublishPackage(this: NpmApi, project: string | undefined, feedId: string, packageName: string, packageVersion: string): Promise<void> {
-        await this.delete([project, '_apis', 'packaging', 'feeds', feedId, 'npm', 'packages', ...packageName.split('/', 2), 'versions', packageVersion], {
+        await this.client.delete([project, '_apis', 'packaging', 'feeds', feedId, 'npm', 'packages', ...packageName.split('/', 2), 'versions', packageVersion], {
             'api-version': AzureDevOpsApiVersion,
         });
     },

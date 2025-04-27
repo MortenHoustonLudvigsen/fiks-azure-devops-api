@@ -24,7 +24,7 @@ declare module './NuGetApi' {
 
 Object.assign(NuGetApi.prototype, {
     async downloadPackage(this: NuGetApi, project: string | undefined, feedId: string, packageName: string, packageVersion: string, options: Options = {}): Promise<Buffer> {
-        return await this.getBinary([project, '_apis', 'packaging', 'feeds', feedId, 'nuget', 'packages', packageName, 'versions', packageVersion, 'content'], {
+        return await this.client.getBinary([project, '_apis', 'packaging', 'feeds', feedId, 'nuget', 'packages', packageName, 'versions', packageVersion, 'content'], {
             ...options,
             'api-version': AzureDevOpsApiVersion
         });

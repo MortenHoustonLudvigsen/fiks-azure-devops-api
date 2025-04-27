@@ -6,7 +6,7 @@ export class NuGetApi extends ApiBase {
         super(organization, pat);
     }
 
-    protected override getBaseUrl(): string {
+    override getBaseUrl(): string {
         const { organization } = this;
         return `https://pkgs.${AzureDevOpsHost}/${organization}`;
     }

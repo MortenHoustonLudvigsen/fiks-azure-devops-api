@@ -27,7 +27,7 @@ declare module './NpmApi' {
 
 Object.assign(NpmApi.prototype, {
     async restorePackageVersionFromRecycleBin(this: NpmApi, project: string | undefined, feedId: string, packageName: string, packageVersion: string, details: NpmRecycleBinPackageVersionDetails): Promise<void> {
-        await this.patch([project, '_apis', 'packaging', 'feeds', feedId, 'npm', 'RecycleBin', 'packages', ...packageName.split('/', 2), 'versions', packageVersion], {
+        await this.client.patch([project, '_apis', 'packaging', 'feeds', feedId, 'npm', 'RecycleBin', 'packages', ...packageName.split('/', 2), 'versions', packageVersion], {
             'api-version': AzureDevOpsApiVersion,
         }, details);
     },

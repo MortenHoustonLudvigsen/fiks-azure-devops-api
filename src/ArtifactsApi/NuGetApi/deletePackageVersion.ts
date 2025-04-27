@@ -18,7 +18,7 @@ declare module './NuGetApi' {
 
 Object.assign(NuGetApi.prototype, {
     async deletePackageVersion(this: NuGetApi, project: string | undefined, feedId: string, packageName: string, packageVersion: string): Promise<void> {
-        await this.delete([project, '_apis', 'packaging', 'feeds', feedId, 'nuget', 'packages', packageName, 'versions', packageVersion], {
+        await this.client.delete([project, '_apis', 'packaging', 'feeds', feedId, 'nuget', 'packages', packageName, 'versions', packageVersion], {
             'api-version': AzureDevOpsApiVersion,
         });
     },

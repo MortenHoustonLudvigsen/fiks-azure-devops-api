@@ -15,7 +15,7 @@ declare module './FeedManagementApi' {
 
 Object.assign(FeedManagementApi.prototype, {
   async getFeed(this: FeedManagementApi, project: string | undefined, feedId: string, options: Options = {}): Promise<Feed> {
-    return await this.get<Feed>([project, '_apis', 'packaging', 'feeds', feedId], {
+    return await this.client.get<Feed>([project, '_apis', 'packaging', 'feeds', feedId], {
       ...options,
       'api-version': AzureDevOpsApiVersion
     });

@@ -20,7 +20,7 @@ declare module './NuGetApi' {
 
 Object.assign(NuGetApi.prototype, {
     async updatePackageVersion(this: NuGetApi, project: string | undefined, feedId: string, packageName: string, packageVersion: string, request: PackageVersionDetails): Promise<NuGetPackageVersion> {
-        return await this.patch<NuGetPackageVersion>([project, '_apis', 'packaging', 'feeds', feedId, 'nuget', 'packages', packageName, 'versions', packageVersion], {
+        return await this.client.patch<NuGetPackageVersion>([project, '_apis', 'packaging', 'feeds', feedId, 'nuget', 'packages', packageName, 'versions', packageVersion], {
             'api-version': AzureDevOpsApiVersion
         }, request);
     },

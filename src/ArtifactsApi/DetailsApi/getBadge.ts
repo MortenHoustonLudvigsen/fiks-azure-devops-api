@@ -20,7 +20,7 @@ declare module './DetailsApi' {
 
 Object.assign(DetailsApi.prototype, {
   async getBadge(this: DetailsApi, project: string | undefined, feedId: string, packageId: string): Promise<Buffer> {
-    return await this.getBinary([project, '_apis', 'public', 'packaging', 'Feeds', feedId, 'Packages', packageId, 'badge'], {
+    return await this.client.getBinary([project, '_apis', 'public', 'packaging', 'Feeds', feedId, 'Packages', packageId, 'badge'], {
       'api-version': AzureDevOpsApiVersion
     });
   },
